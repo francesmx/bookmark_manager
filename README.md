@@ -1,5 +1,4 @@
 # Bookmark Manager
-----
 Makers Academy Week 4 Challenge
 ## User Stories
 ~~~
