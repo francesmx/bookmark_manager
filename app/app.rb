@@ -13,13 +13,23 @@ class BookmarkManager < Sinatra::Base
     erb :'links/new'
   end
 
+  # post '/links' do
+  #   link = Link.create(url: params[:link_url], title: params[:link_name])
+  #   params[:tags].split.each do |tag|
+  #     link.tags << Tag.create(name: tag)
+  #   end
+  #   link.save
+  #   redirect ('/links')
+  # end
+
   post '/links' do
-    link = Link.new(url: params[:link_url], title: params[:link_name])
-    tag = Tag.first_or_create(name: params[:tags])
-    link.tags << tag
-    link.save
-    redirect ('/links')
-  end
+   link = Link.create(url: params[:link_url], title: params[:link_name])
+   params[:tags].split.each do |tag|
+     link.tags << Tag.create(name: tag)
+   end
+   link.save
+   redirect to('/links')
+ end
 
   get '/tags/:name' do
     tag = Tag.first(name: params[:name])
