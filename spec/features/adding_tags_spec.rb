@@ -6,11 +6,11 @@ feature 'Adding tags' do
     visit '/links/new'
     fill_in('link_name', with: 'The Stephen Gregory, OBE')
     fill_in('link_url', with: 'http://www.stephengregory.co.uk/')
-    fill_in 'tags',  with: 'failed actor'
+    fill_in 'tags',  with: 'actor'
 
     click_button('Submit')
     link = Link.first
-    expect(link.tags.map(&:name)).to include('failed actor')
+    expect(link.tags.map(&:name)).to include('actor')
   end
 
 end
