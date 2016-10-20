@@ -8,6 +8,7 @@ gem 'dm-postgres-adapter'
 gem 'rspec-sinatra'
 gem 'sinatra'
 gem 'rerun'
+gem 'rake'
 
 group :test do
   gem 'rspec'
