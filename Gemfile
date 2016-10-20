@@ -9,6 +9,7 @@ gem 'rspec-sinatra'
 gem 'sinatra'
 gem 'rerun'
 gem 'rake'
+gem 'bcrypt'
 
 group :test do
   gem 'rspec'
