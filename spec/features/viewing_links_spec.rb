@@ -25,7 +25,7 @@ feature 'Viewing links by tag' do
     fill_in 'tags',  with: 'actor'
     click_button('Submit')
   end
-  scenario 'Fliter links by tag' do
+  scenario 'Filter links by tag' do
     visit '/tags/actor'
     expect(page.status_code).to eq(200)
     within 'ul#links' do

@@ -5,6 +5,20 @@
   </head>
 
   <body>
+    <%= partial :welcome %>
+    <%= partial :flash %>
+    <%= yield %>
+  </body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookmark Manager</title>
+  </head>
+
+  <body>
     <% if current_user %>
       Welcome, <%= current_user.email %>
       <form method='post' action='/sessions'>
@@ -25,6 +39,6 @@
         <% end %>
       </ul>
     <% end %>
-    <%= yield %>  <!-- this then yields to the view which has been called by your controller -->
+    <%= yield %>
   </body>
-</html>
+</html> -->
