@@ -6,9 +6,6 @@ feature 'User sign up' do
     expect(User.first.email).to eq('alice@example.com')
   end
   scenario 'requires a matching confirmation password' do
-    # again it's questionable whether we should be testing the model at this
-    # level.  We are mixing integration tests with feature tests.
-    # However, it's convenient for our purposes.
     expect { sign_up(password_confirmation: 'wrong') }.not_to change(User, :count)
   end
   scenario 'with a password that does not match' do
@@ -28,15 +25,15 @@ feature 'User sign up' do
     expect(page).to have_content('Email is already taken')
   end
 
-  def sign_up(email: 'alice@example.com',
-            password: '12345678',
-            password_confirmation: '12345678')
-    visit '/users/new'
-    fill_in :email, with: email
-    fill_in :password, with: password
-    fill_in :password_confirmation, with: password_confirmation
-    click_button 'Sign up'
-  end
+  # def sign_up(email: 'alice@example.com',
+  #           password: '12345678',
+  #           password_confirmation: '12345678')
+  #   visit '/users/new'
+  #   fill_in :email, with: email
+  #   fill_in :password, with: password
+  #   fill_in :password_confirmation, with: password_confirmation
+  #   click_button 'Sign up'
+  # end
 end
 
 feature 'User sign in' do
@@ -52,10 +49,27 @@ feature 'User sign in' do
     expect(page).to have_content "Welcome, #{user.email}"
   end
 
-  def sign_in(email:, password:)
-    visit '/sessions/new'
-    fill_in :email, with: email
-    fill_in :password, with: password
-    click_button 'Sign in'
+  # def sign_in(email:, password:)
+  #   visit '/sessions/new'
+  #   fill_in :email, with: email
+  #   fill_in :password, with: password
+  #   click_button 'Sign in'
+  # end
+end
+
+feature 'User sign out' do
+
+  before(:each) do
+    User.create(email: 'test@test.com',
+                password: 'test',
+                password_confirmation: 'test')
   end
+
+  scenario 'while being signed in' do
+    sign_in(email: 'test@test.com', password: 'test')
+    click_button 'Sign out'
+    expect(page).to have_content('goodbye!')
+    expect(page).not_to have_content('Welcome, test@test.com')
+  end
+
 end
