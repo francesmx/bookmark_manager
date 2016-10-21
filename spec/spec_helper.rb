@@ -6,9 +6,9 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require 'sinatra/partial'
+require 'timecop'
 require './app/models/link'
 require 'database_cleaner'
-require_relative 'web_helper'
 require_relative 'helpers/session'
 
 

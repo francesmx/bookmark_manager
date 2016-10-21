@@ -24,16 +24,6 @@ feature 'User sign up' do
     expect{ sign_up }.to_not change(User, :count)
     expect(page).to have_content('Email is already taken')
   end
-
-  # def sign_up(email: 'alice@example.com',
-  #           password: '12345678',
-  #           password_confirmation: '12345678')
-  #   visit '/users/new'
-  #   fill_in :email, with: email
-  #   fill_in :password, with: password
-  #   fill_in :password_confirmation, with: password_confirmation
-  #   click_button 'Sign up'
-  # end
 end
 
 feature 'User sign in' do
@@ -48,13 +38,6 @@ feature 'User sign in' do
     sign_in(email: user.email,   password: user.password)
     expect(page).to have_content "Welcome, #{user.email}"
   end
-
-  # def sign_in(email:, password:)
-  #   visit '/sessions/new'
-  #   fill_in :email, with: email
-  #   fill_in :password, with: password
-  #   click_button 'Sign in'
-  # end
 end
 
 feature 'User sign out' do
@@ -71,5 +54,25 @@ feature 'User sign out' do
     expect(page).to have_content('goodbye!')
     expect(page).not_to have_content('Welcome, test@test.com')
   end
+end
+
+feature 'Resetting password' do
+  scenario 'When I forget my password I can see a link to reset' do
+    visit '/sessions/new'
+    click_link 'I forgot my password'
+    expect(page).to have_content("Please enter your email address")
+  end
+
+  scenario 'When I enter my email I am told to check my inbox' do
+    recover_password
+    expect(page).to have_content "Thanks. Please check your inbox for the link."
+  end
+
+  scenario 'assigned a reset token to the user when they recover' do
+    sign_up
+    expect{recover_password}.to change{User.first.password_token}
+  end
+
+
 
 end
